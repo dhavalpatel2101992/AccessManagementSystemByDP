@@ -15,11 +15,11 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
-                flash('Logged in successfully!', category='success')
+                flash('You have been logged in.', category='success')
                 login_user(user, remember=True)
                 return redirect(url_for('views.home'))
             else:
-                flash('Incorrect password, try again.', category='error')
+                flash('Invalid email or password.', category='error')
         else:
             flash('Email does not exist.', category='error')
 
@@ -29,6 +29,7 @@ def login():
 @login_required
 def logout():
     logout_user()
+    flash('You have been logged out.', category='success')
     return redirect(url_for('auth.login'))
 
 @auth.route('/signup', methods=['GET', 'POST'])
@@ -56,7 +57,7 @@ def signup():
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
-            flash('Account created!', category='success')
+            flash('Your account has been created. You can now logged in.', category='success')
             return redirect(url_for('views.home'))
 
 

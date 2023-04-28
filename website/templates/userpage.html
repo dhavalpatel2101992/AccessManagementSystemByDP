@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+AMS-UserManagement
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center;">
+  <h1 style="display: inline;">Users</h1>
+  <button style="display: inline-block;float: right;right: 5px;top: 5px;position: relative;" type="button" class="btn btn-primary" onClick="window.location.href='{{ url_for( 'views.ldapsynch') }}';">
+    <span class="bi bi-arrow-repeat"></span>
+    LDAP SYNC
+  </button>
+</div>
+<table class="table table-bordered table-hover">
+  <thead class="alert alert-secondary">
+    <tr>
+      <th>Corporate Key</th>
+      <th>Name</th>
+      <th>Email Address</th>
+      <th>Number of Teams</th>
+      <th>Created On</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in user_list %}
+      <tr>
+        <td>{{ user.corpkey }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.teams|length }}</td>
+        <td>{{ user.create_date }}</td>
+        <td>
+          <a href="{{ url_for('views.view_user', user_id=user.id) }}"><span class="bi bi-eye"></span></a>
+          &nbsp
+          <a href="{{ url_for('views.user_assign_teams', user_id=user.id) }}"><span class="bi bi-people"></span></a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

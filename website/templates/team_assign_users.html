@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}
+AMS-AssignUsers
+{% endblock %}
+
+{% block content %}
+<div class="popupscreen">
+  <div class="popupscreenheader">
+    <h3 style="display: inline;">Assign Users : {{ team.name }}</h3>
+    <button style="display: inline-block;float: right;padding: 4px;position: relative;" type="button" class="btn btn-primary" onClick="window.location.href='{{ url_for( 'views.teampage') }}';">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="container">
+    <form id="team_assign_users"  method="POST">
+      <input type="hidden" name="team_id" value="{{ team.id }}">
+      <br/>
+      <div style="display: flex; flex-wrap: wrap;">
+      <div style="flex-basis: 50%;padding: 10px;box-sizing: border-box;">
+      <p>Assigned users:</p>
+      <select style="width: 60%;height: auto;" multiple name="assigned_user_ids" id="assigned_users">
+        {% for user in assigned_users %}
+          <option value="{{ user.id }}">{{ user.email }}</option>
+        {% endfor %}
+      </select>
+
+      <button type="button" onclick="moveSelectedOptions('assigned_users', 'remaining_users')">Remove</button>
+      </div>
+      <div style="flex-basis: 50%;padding: 10px;box-sizing: border-box;">
+      <p>Remaining users:</p>
+      <select style="width: 60%;height: auto;" multiple name="remaining_user_ids" id="remaining_users">
+        {% for user in remaining_users %}
+          <option value="{{ user.id }}">{{ user.email }}</option>
+        {% endfor %}
+      </select>
+
+      <button type="button" onclick="moveSelectedOptions('remaining_users', 'assigned_users')">Add</button>
+      </div>
+      </div>
+      <div style="display: flex;justify-content: center;">
+        <button  type="button" class="btn btn-primary" onclick="getAllSelected()">Submit</button>
+      </div>
+      <br>
+    </form>
+  </div>
+</div>
+  <script>
+    function moveSelectedOptions(fromId, toId) {
+      var from = document.getElementById(fromId);
+      var to = document.getElementById(toId);
+      var selectedOptions = Array.from(from.selectedOptions);
+      selectedOptions.forEach(function(option) {
+        to.appendChild(option);
+      });
+    };
+    function getAllSelected() {
+      const selectElement1 = document.getElementById('assigned_users');
+      const selectElement2 = document.getElementById('remaining_users');
+
+    for (let i = 0; i < selectElement1.options.length; i++) {
+      const option = selectElement1.options[i];
+      option.selected = true;
+    }
+
+    for (let i = 0; i < selectElement2.options.length; i++) {
+      const option = selectElement2.options[i];
+      option.selected = true;
+    }
+
+    const form = document.getElementById('team_assign_users');
+    form.submit();
+    }
+  </script>
+{% endblock %}

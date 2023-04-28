@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}
+AMS-ViewTeam
+{% endblock %}
+
+{% block content %}
+<div class="popupscreen">
+  <div class="popupscreenheader">
+    <h3 style="display: inline;">View User : {{ db_user.name }}</h3>
+    <button style="display: inline-block;float: right;padding: 4px;position: relative;" type="button" class="btn btn-primary" onClick="window.location.href='{{ url_for( 'views.userpage') }}';">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="container">
+    {% if db_user.teams %}
+      <table class="table table-bordered table-hover">
+        <thead class="alert alert-secondary">
+          <tr>
+            <th>Team Name</th>
+            <th>Email Address</th>
+            <th>Tribe Name</th>
+            <th>Number of Users</th>
+            <th>Created On</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for team in db_user.teams %}
+            <tr>
+              <td>{{ team.name }}</td>
+              <td>{{ team.email }}</td>
+              <td>{{ team.tribename }}</td>
+              <td>{{ team.users|length }}</td>
+              <td>{{ team.create_date }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <h4>No Teams found.</h4>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

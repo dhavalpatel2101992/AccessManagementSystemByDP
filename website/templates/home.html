@@ -2,25 +2,30 @@
 
 {% block content %}
 
-<h1 align="center">Notes</h1>
-<ul class="list-group list-group-flush" id="notes">
-  {% for note in user.notes %}
-  <li class="list-group-item">
-    {{ note.data }}
-    <button type="button" class="close" onClick="deleteNote({{ note.id }})">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </li>
-  {% endfor %}
-</ul>
-<form method="POST">
-  <textarea name="note" id="note" class="form-control"></textarea>
-  <br />
-  <div align="center">
-    <button type="submit" class="btn btn-primary">Add Note</button>
-  </div>
-</form>
+<h1 align="center">Access Management System</h1>
+<div class="kpi-container">
+      <div class="kpi-value">
+          {{user_count}}
+      </div>
+      <div class="kpi-details">
+        <div class="kpi-title">
+          Number of Users
+        </div>
+        <div class="kpi-description">
+          There are users defined in this AMS.
+        </div>
+      </div>
 
-
-
+      <div class="kpi-value">
+          {{team_count}}
+      </div>
+      <div class="kpi-details">
+        <div class="kpi-title">
+          Number of Teams
+        </div>
+        <div class="kpi-description">
+          There are teams defined in this AMS.
+        </div>
+      </div>
+</div>
 {% endblock %}

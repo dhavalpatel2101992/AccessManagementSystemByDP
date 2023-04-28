@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+AMS-DeleteTeam
+{% endblock %}
+
+{% block content %}
+<div class="popupscreen">
+  <div class="popupscreenheader">
+    <h3 style="display: inline;">Delete Team : {{ team.name }}</h3>
+    <button style="display: inline-block;float: right;padding: 4px;position: relative;" type="button" class="btn btn-primary" onClick="window.location.href='{{ url_for( 'views.teampage') }}';">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="container">
+    <form method="POST">
+      <br />
+      <input type="hidden" name="teamid" value="{{team.id}}">
+      <h3> Are you sure you want to delete Team "{{team.name}}"?</h3>
+
+      <br />
+      <button type="submit" class="btn btn-danger">Yes</button>
+      <button type="button" class="btn btn-primary" onClick="window.location.href='{{ url_for( 'views.teampage') }}';">No</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

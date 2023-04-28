@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+AMS-AddTeam
+{% endblock %}
+
+{% block content %}
+<div class="popupscreen">
+  <div class="popupscreenheader">
+    <h3 style="display: inline;">Add Team</h3>
+    <button style="display: inline-block;float: right;padding: 4px;position: relative;" type="button" class="btn btn-primary" onClick="window.location.href='{{ url_for( 'views.teampage') }}';">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="container">
+    <form method="POST">
+      <br />
+      <div class="form-group">
+        <label for="teamname">Team Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="teamname"
+          name="teamname"
+          placeholder="Enter Team name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          placeholder="Enter email"
+        />
+      </div>
+      <div class="form-group">
+        <label for="tribename">Tribe Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="tribename"
+          name="tribename"
+          placeholder="Enter Tribe name"
+        />
+      </div>
+
+      <br />
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
